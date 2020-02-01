@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Terrain
+  - Hazardous
   - 
   - 
   - 
@@ -40,4 +40,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background1
+    uniqueID: 1038394761
+    locked: 0
+  - name: Background2
+    uniqueID: 3666318893
+    locked: 0
+  - name: Foreground1
+    uniqueID: 2924580535
+    locked: 0
+  - name: Foreground2
+    uniqueID: 3402744657
+    locked: 0
+  - name: Player
+    uniqueID: 3917025339
     locked: 0
