@@ -43,7 +43,13 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             fltr = !fltr;
-            PlayerControl.instance.GetDamage(20);
+            //PlayerControl.instance.GetDamage(20);
+            ContactPoint2D point = new ContactPoint2D();
+            point = collision.GetContact(0);
+            if (point.point.x > transform.position.x)
+                PlayerControl.instance.GiveForce(new Vector2(150, 300));
+            else
+                PlayerControl.instance.GiveForce(new Vector2(-150, 300));
         }
     }
 }

@@ -37,7 +37,10 @@ public class Sock : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
             SockCanvas.instance.AddSock(sockHash);
+                
+        } 
         Destroy(gameObject);
     }
 }

@@ -9,6 +9,10 @@ public class PlayerControl : MonoBehaviour {
     public static UnityEvent OnDie = null;
     public static PlayerControl instance = null;
 
+    public GameObject hook;
+    private GameObject curHook;
+    private bool hooked;
+
     [SerializeField]
     private Rigidbody2D rb;
     private Vector2 velocity;
@@ -17,7 +21,7 @@ public class PlayerControl : MonoBehaviour {
     private InputManager input;
     private ObjAudioManager audioManager;
 
-    public bool canJump;
+    public bool canJump, canControlMove;
 
     [Range(50, 200)]
     public int maxHp = 100;
@@ -44,6 +48,8 @@ public class PlayerControl : MonoBehaviour {
         /*audioManager = GetComponent<ObjAudioManager>();*/
         hp = maxHp;
         rb.gravityScale = fallGravity;
+        canControlMove = true;
+        hooked = false;
         /*sockQueuePosition = new Vector2[6];*/
     }
 
@@ -58,18 +64,32 @@ public class PlayerControl : MonoBehaviour {
         CheckCollision();
         JumpGravity(velocity);
         /* Control moving */
-       
-        HorizontalMoving(velocity);
+        if (Input.GetMouseButtonDown(0))
+        {
+            if(hooked == false)
+            { 
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 20, 1 << 9 | 1 << 10);
+                if(hit.collider != null)
+                {
+                    hooked = true;
+                    curHook = Instantiate(hook, transform.position, Quaternion.identity);
+                    curHook.GetComponent<RopeScript>().destiny = hit.point;
+                }
+                
+            }
+            else
+            {
+                Destroy(curHook);
+                curHook = null;
+                hooked = false;
+            }
+        }
+        if (canControlMove)
+            HorizontalMoving(velocity);
         if (Input.GetKeyDown(input.jump))
             Jump(velocity);
-        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x,-walkVelocity,walkVelocity),rb.velocity.y);
-        /*sockQueuePosition[0] = transform.position;
-        sockQueuePosition[1] = (Vector2)transform.position - rb.velocity.normalized;
-        for (int i = 2; i < sockQueuePosition.Length; i++)
-        {
-            Vector2 followVector = Vector2.Lerp((sockQueuePosition[i] - sockQueuePosition[i - 1]).normalized, (sockQueuePosition[i] - sockQueuePosition[0]).normalized, 1 / i).normalized;
-            sockQueuePosition[i] = sockQueuePosition[i - 1] - followVector;        
-        }*/
+        if (canControlMove && hooked == false)
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x,-walkVelocity,walkVelocity),rb.velocity.y);
     }
 
     void HorizontalMoving(Vector2 velocity)
@@ -81,8 +101,11 @@ public class PlayerControl : MonoBehaviour {
             dir = -1;
         else 
             dir = 0;
-        rb.AddForce(30 * new Vector2(dir, 0));
-        if(dir == 0)
+        if(hooked)
+            rb.AddForce(10 * new Vector2(dir, 0));
+        else
+            rb.AddForce(30 * new Vector2(dir, 0));
+        if(dir == 0 && hooked == false)
             rb.velocity = new Vector2(0.8f * rb.velocity.x, rb.velocity.y);
     }
 
@@ -97,7 +120,7 @@ public class PlayerControl : MonoBehaviour {
 
     void JumpGravity(Vector2 velocity)
     {
-        if (velocity.y > 0 && Input.GetKey(input.jump))
+        if (velocity.y > 0 && canControlMove && Input.GetKey(input.jump))
             rb.gravityScale = lowGravity;
         else
             rb.gravityScale = fallGravity;
@@ -121,6 +144,20 @@ public class PlayerControl : MonoBehaviour {
     public void GetDamage(float damage)
     {
         hp -= damage;
+    }
+
+    public void GiveForce(Vector2 force)
+    {
+        rb.velocity = Vector2.zero;
+        rb.AddForce(force);
+        StartCoroutine(Hurt());
+    }
+
+    IEnumerator Hurt()
+    {
+        canControlMove = false;
+        yield return new WaitForSeconds(0.4f);
+        canControlMove = true;
     }
 
     private void OnDestroy()
