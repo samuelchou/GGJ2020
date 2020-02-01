@@ -8,7 +8,6 @@ public class Sock : MonoBehaviour
     public int sockHash = 1;
     SpriteRenderer sr;
 
-
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -35,9 +34,10 @@ public class Sock : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
-
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            SockCanvas.instance.AddSock(sockHash);
+        Destroy(gameObject);
     }
 }
