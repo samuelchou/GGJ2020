@@ -23,8 +23,8 @@ public class PlayerControl : MonoBehaviour {
     private const string WALK_BOOL_PARAM = "isWalking";
     private const string JUMP_BOOL_PARAM = "isJumping";
     private const string SHOOT_TRIG_PARAM = "shoot";
-    private Vector3 RIGHT_SCALE = new Vector3(1, 1, 1);
-    private Vector3 LEFT_SCALE = new Vector3(-1, 1, 1);
+    private static Vector3 RIGHT_SCALE = new Vector3(1, 1, 1);
+    private static Vector3 LEFT_SCALE = new Vector3(-1, 1, 1);
 
     [SerializeField]
     private InputManager input;
@@ -141,7 +141,7 @@ public class PlayerControl : MonoBehaviour {
 
     void Jump(Vector2 velocity)
     {
-        Debug.Log("Try to jump while jump is " + (canJump ? "allowed." : "not allowed"));
+        // Debug.Log("Try to jump while jump is " + (canJump ? "allowed." : "not allowed"));
         if (canJump == true)
         {
             rb.AddForce(new Vector2(0, JumpForce * fallGravity * Physics2D.gravity.magnitude));

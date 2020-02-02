@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     public float walkVelocity = 5;
     private bool fltr; //False for Left, True for Right
     private static int layerMk = -1;
+    private static Vector3 RIGHT_SCALE = new Vector3(1, 1, 1);
+    private static Vector3 LEFT_SCALE = new Vector3(-1, 1, 1);
 
     private void Awake()
     {
@@ -22,18 +24,31 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit2D cliffDetect, wallDetect;
-        if(fltr)
+        //if (fltr)
+        //{
+        //    wallDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x + 0.06f, 0), 0.05f, Vector2.zero, 0, layerMk);
+        //    cliffDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x, -0.5f * transform.localScale.y), 0.05f, Vector2.zero, 0, layerMk);
+        //}
+        //else
+        //{
+        //    wallDetect = Physics2D.CircleCast(transform.position + new Vector3(-0.5f * transform.localScale.x - 0.06f, 0), 0.05f, Vector2.zero, 0, layerMk);
+        //    cliffDetect = Physics2D.CircleCast(transform.position + new Vector3(-0.5f * transform.localScale.x, -0.5f * transform.localScale.y), 0.05f, Vector2.zero, 0, layerMk);
+        //}
+        // localScale.x現在會受到fltr的編輯（正負）
+        if (fltr)
         {
-            wallDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x + 0.06f,0), 0.05f, Vector2.zero, 0, layerMk);
+            wallDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x + 0.06f, 0), 0.05f, Vector2.zero, 0, layerMk);
             cliffDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x, -0.5f * transform.localScale.y), 0.05f, Vector2.zero, 0, layerMk);
         }
         else
         {
-            wallDetect = Physics2D.CircleCast(transform.position + new Vector3(-0.5f * transform.localScale.x - 0.06f, 0), 0.05f, Vector2.zero, 0, layerMk);
-            cliffDetect = Physics2D.CircleCast(transform.position + new Vector3(-0.5f * transform.localScale.x, -0.5f * transform.localScale.y), 0.05f, Vector2.zero, 0, layerMk);
+            wallDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x - 0.06f, 0), 0.05f, Vector2.zero, 0, layerMk);
+            cliffDetect = Physics2D.CircleCast(transform.position + new Vector3(0.5f * transform.localScale.x, -0.5f * transform.localScale.y), 0.05f, Vector2.zero, 0, layerMk);
         }
         if ((wallDetect.collider != null && wallDetect.collider.isTrigger == false) || cliffDetect.collider == null)
             fltr = !fltr;
+        transform.localScale = fltr ? RIGHT_SCALE : LEFT_SCALE;
+
         float walkDis = walkVelocity * Time.fixedDeltaTime;
         transform.position = new Vector2(transform.position.x + ((fltr)? walkDis : -walkDis), transform.position.y);
     }
