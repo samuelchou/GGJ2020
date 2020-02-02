@@ -1807,7 +1807,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4353334587218479181}
-        m_MethodName: NextLevel
+        m_MethodName: ToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2112,6 +2112,7 @@ GameObject:
   - component: {fileID: 3447893238596507157}
   - component: {fileID: 1151421252518395712}
   - component: {fileID: 3677472148812930469}
+  - component: {fileID: 2439477548018767005}
   m_Layer: 5
   m_Name: YouDied
   m_TagString: Untagged
@@ -2256,6 +2257,24 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2439477548018767005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331753866138121918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0cb546804ffdd45a0114e125404818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftUpPoint:
+  - -10
+  - 160
+  rightDownPoint:
+  - 10
+  - 140
 --- !u!1 &9206796456689731994
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,7 +2307,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1545946275126169131}
+  - {fileID: 5254822862512694241}
   - {fileID: 3447893238596507157}
   - {fileID: 1654846049645009144}
   - {fileID: 5650787339832248352}
@@ -2372,7 +2391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48974bc06f42f96409273795475f2794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &5160549358399182971
+--- !u!1001 &1875001798860780977
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2484,10 +2503,25 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5974510610471917136, guid: 26353f88ae3327b499c6770e99a86de8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974510610471917136, guid: 26353f88ae3327b499c6770e99a86de8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974510610471917136, guid: 26353f88ae3327b499c6770e99a86de8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5974510610471917137, guid: 26353f88ae3327b499c6770e99a86de8,
         type: 3}
       propertyPath: m_Name
-      value: ManySocksUIImage
+      value: ManySocksUIImage (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5974510610471917139, guid: 26353f88ae3327b499c6770e99a86de8,
         type: 3}
@@ -2496,9 +2530,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26353f88ae3327b499c6770e99a86de8, type: 3}
---- !u!224 &1545946275126169131 stripped
+--- !u!224 &5254822862512694241 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5974510610471917136, guid: 26353f88ae3327b499c6770e99a86de8,
     type: 3}
-  m_PrefabInstance: {fileID: 5160549358399182971}
+  m_PrefabInstance: {fileID: 1875001798860780977}
   m_PrefabAsset: {fileID: 0}

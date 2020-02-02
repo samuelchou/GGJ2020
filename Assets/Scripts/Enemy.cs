@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [Range(3,10)]
     public float walkVelocity = 5;
+    public float damage = 20;
     private bool fltr; //False for Left, True for Right
     private static int layerMk = -1;
     private static Vector3 RIGHT_SCALE = new Vector3(1, 1, 1);
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             fltr = !fltr;
-            //PlayerControl.instance.GetDamage(20);
+            PlayerControl.instance.GetDamage(damage);
             ContactPoint2D point = new ContactPoint2D();
             point = collision.GetContact(0);
             if (point.point.x > transform.position.x)
