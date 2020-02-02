@@ -592,7 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 1651420178}
   velocity: 30
-  waitTime: 15
+  waitTime: 8
 --- !u!212 &731754385
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 468494812}
   velocity: 30
-  waitTime: 12.5
+  waitTime: 6.5
 --- !u!212 &1028320408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 701739605}
   velocity: 30
-  waitTime: 20
+  waitTime: 11
 --- !u!212 &1416654399
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859320c8d7ed3a94a8bc29821dfd5d1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 24
+  waitTime: 15
 --- !u!1 &1449827514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 215080668}
   velocity: 30
-  waitTime: 5
+  waitTime: 3
 --- !u!1 &1532431766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 717435361}
   velocity: 30
-  waitTime: 17.5
+  waitTime: 9.5
 --- !u!212 &1532431768
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1260,7 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 98077678}
   velocity: 30
-  waitTime: 10
+  waitTime: 6
 --- !u!212 &1581180680
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 179454318}
   velocity: 30
-  waitTime: 7.5
+  waitTime: 4.5
 --- !u!1 &1651420177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPoint: {fileID: 1812080538}
   velocity: 30
-  waitTime: 2.5
+  waitTime: 1.5
 --- !u!1 &2101622723
 GameObject:
   m_ObjectHideFlags: 0
