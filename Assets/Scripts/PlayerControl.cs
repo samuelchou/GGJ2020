@@ -16,6 +16,15 @@ public class PlayerControl : MonoBehaviour {
     [SerializeField]
     private Rigidbody2D rb;
     private Vector2 velocity;
+    
+    // Animation
+    [SerializeField]
+    private Animator playerAnimator;
+    private const string WALK_BOOL_PARAM = "isWalking";
+    private const string JUMP_BOOL_PARAM = "isJumping";
+    private const string SHOOT_TRIG_PARAM = "shoot";
+    private Vector3 RIGHT_SCALE = new Vector3(1, 1, 1);
+    private Vector3 LEFT_SCALE = new Vector3(-1, 1, 1);
 
     [SerializeField]
     private InputManager input;
@@ -31,6 +40,8 @@ public class PlayerControl : MonoBehaviour {
     [Range(10,30)]
     public float JumpForce = 15;
     private float fallGravity = 4.5f, lowGravity = 2.5f, walkVelocity = 7.5f;
+    public Transform leftFoot = null, rightFoot = null;
+
     /*private Vector2[] sockQueuePosition;*/
 
     private void Awake()
@@ -66,6 +77,10 @@ public class PlayerControl : MonoBehaviour {
         /* Control moving */
         if (Input.GetMouseButtonDown(0))
         {
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetTrigger(SHOOT_TRIG_PARAM);
+            }
             if(hooked == false)
             { 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position, 20, 1 << 9 | 1 << 10);
@@ -94,11 +109,20 @@ public class PlayerControl : MonoBehaviour {
 
     void HorizontalMoving(Vector2 velocity)
     {
+        bool isWalking = false;
         int dir = 0; // 1 for right, -1 for left, 0 for none
-        if (Input.GetKey(input.right)) 
+        if (Input.GetKey(input.right))
+        {
             dir = 1;
-        else if (Input.GetKey(input.left)) 
+            isWalking = true;
+            transform.localScale = RIGHT_SCALE;
+        }
+        else if (Input.GetKey(input.left))
+        {
             dir = -1;
+            isWalking = true;
+            transform.localScale = LEFT_SCALE;
+        }
         else 
             dir = 0;
         if(hooked)
@@ -107,10 +131,17 @@ public class PlayerControl : MonoBehaviour {
             rb.AddForce(30 * new Vector2(dir, 0));
         if(dir == 0 && hooked == false)
             rb.velocity = new Vector2(0.8f * rb.velocity.x, rb.velocity.y);
+
+        // animation
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool(WALK_BOOL_PARAM, isWalking);
+        }
     }
 
     void Jump(Vector2 velocity)
     {
+        Debug.Log("Try to jump while jump is " + (canJump ? "allowed." : "not allowed"));
         if (canJump == true)
         {
             rb.AddForce(new Vector2(0, JumpForce * fallGravity * Physics2D.gravity.magnitude));
@@ -134,11 +165,20 @@ public class PlayerControl : MonoBehaviour {
         Vector2 leftfoot, rightfoot;
         leftfoot = new Vector2(transform.position.x - 0.5f * transform.localScale.x, transform.position.y - 0.5f * transform.localScale.y);
         rightfoot = new Vector2(rb.transform.position.x + 0.5f * transform.localScale.x, transform.position.y - 0.5f * transform.localScale.y);
+        if (leftFoot != null) leftfoot = leftFoot.position;
+        if (rightFoot != null) rightfoot = rightFoot.position;
+
         hit = Physics2D.CircleCast(leftfoot, 0.04f, rightfoot - leftfoot, (rightfoot - leftfoot).magnitude, 1 << 9 | 1 << 10); 
         if (hit.collider != null && hit.collider.isTrigger == false)
             canJump = true;
         else
             canJump = false;
+
+        // animation
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool(JUMP_BOOL_PARAM, !canJump);
+        }
     }
 
     public void GetDamage(float damage)
