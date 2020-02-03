@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destiny: {x: 0, y: 0}
-  speed: 1
-  distance: 1
+  speed: 0.6
+  distance: 0.7
   nodePrefab: {fileID: 1489981530138922330, guid: 24b730c1431d0eb4db1ef6b42d07a105,
     type: 3}
   player: {fileID: 0}
@@ -159,7 +159,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

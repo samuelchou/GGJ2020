@@ -46,6 +46,11 @@ public class RopeScript : MonoBehaviour
 
         GameObject go = Instantiate(nodePrefab, pos2Create, Quaternion.identity);
         go.transform.SetParent(transform);
+
+        // draw lines
+        LineConnecter lineConnecter = go.GetComponent<LineConnecter>();
+        if (lineConnecter != null) lineConnecter.target = lastNode.transform;
+
         lastNode.GetComponent<HingeJoint2D>().connectedBody = go.GetComponent<Rigidbody2D>();
         lastNode = go;
     }
